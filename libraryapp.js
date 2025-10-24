@@ -23,38 +23,48 @@ addBookToLibrary("animal farm", "george orwell", 385, true);
 addBookToLibrary("the kite runnner", "shruden M.", 262, false);
 
 //display books on the page
-function displayArrayBook(arrBook, tableId){
-    const tableBody  = document.getElementById(tableId).getElementsByTagName('tbody')[0];
+function displayArrayBook(books, containerId){
+    const container = document.getElementById(containerId);
 
-    // clear the body
-    tableBody.innerHTML= '';
+    container.innerHTML= ''; //clear the contents
 
-    arrBook.forEach(item => {
-        //create new 'tr' to the table
-        const row = tableBody.insertRow();
-        //to make iterate through the array
-        Object.keys(item).forEach(key => {
+    
+    // create loops that iterate through the array books
+    books.forEach(book => {
+        //create div for cards
+        const bookCards=document.createElement('div');
+        bookCards.className='book-card'; // add class for styling
 
-            if(key === 'id'){ return; } // to clear the id from the display
+        // create elements for book info
 
-            //create new 'td' for the row the table
-            const cell = row.insertCell();
-            cell.textContent = item[key];
+        const titleElement = document.createElement('h3');
+        titleElement.textContent = book.title;
+        bookCards.appendChild(titleElement);
 
-        });
+        const authorElement = document.createElement('p');
+        authorElement.textContent = `Author: ${book.author}`;
+        bookCards.appendChild(authorElement);
+
+        const pageElement = document.createElement('p');
+        pageElement.textContent =`Pages: ${book.pages}`;
+        bookCards.appendChild(pageElement);
+
+        const statusElement = document.createElement('p');
+        statusElement.textContent =`Read status: ${book.readStatus}`;
+        bookCards.appendChild(statusElement);
+
+        container.appendChild(bookCards);
+
     });
-
 }
 
-
-
-// display the new book form to store
+    displayArrayBook(myLibrary,'display-container');
 
 const addNewBookBtn = document.querySelector(".newBookAddBtn");
 const newBookFormContainer = document.querySelector(".newBookAddContainer");
 const newBookForm = document.querySelector(".newBookForm");
 
-const submitBtn = document.querySelector('btn');
+const submitBtn = document.querySelector('.btn');
 
 
 addNewBookBtn.addEventListener('click', () =>{
@@ -78,7 +88,7 @@ newBookForm.addEventListener('submit', (event)=> {
 
     //displayArrayBook(newBook,'myTable');
     event.target.reset();
-    displayArrayBook(myLibrary,'myTable');
+    displayArrayBook(myLibrary,'display-container');
 
     
 })

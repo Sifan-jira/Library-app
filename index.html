@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library app</title>
     <style>
-        tbody,tr,td,th{
-            border: 1px solid black;
+        .book-card{
+            background-color: yellow;
+            border-radius: 10x;
+            height: 180px;
+            width: 170px;
         }
     </style>
 </head>
@@ -14,7 +17,7 @@
     <div id="display-container"></div>
 
 
-    <table id="myTable">
+    <!-- <table id="myTable">
         <thead>
             <tr>
                 <th>Title</th>
@@ -24,7 +27,7 @@
             </tr>
         </thead>
         <tbody></tbody>
-    </table>
+    </table> -->
 
 
     <button class="newBookAddBtn">New Book</button>
@@ -33,15 +36,15 @@
         <form action="#" class="newBookForm">
             <div>
                 <label for="title">Title</label>
-                <input type="text" name="title" id="title">
+                <input type="text" name="title" id="title" required>
             </div>
             <div>
                 <label for="author">Author</label>
-                <input type="text" name="author" id="author">
+                <input type="text" name="author" id="author" required>
             </div>
             <div>
                 <label for="pages">Pages</label>
-                <input type="tel" name="pages" id="pages">
+                <input type="number" name="pages" id="pages" required>
             </div>
             <div>
                 <label for="readStatus">Read status</label>
