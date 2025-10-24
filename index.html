@@ -5,10 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library app</title>
     <style>
-
+        tbody,tr,td,th{
+            border: 1px solid black;
+        }
     </style>
 </head>
 <body>
+    <div id="display-container"></div>
+
+
+    <table id="myTable">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Pages</th>
+                <th>Already read</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+
+    <button class="newBookAddBtn">New Book</button>
+
+    <div class="newBookAddContainer" style="display: none;">
+        <form action="#" class="newBookForm">
+            <div>
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title">
+            </div>
+            <div>
+                <label for="author">Author</label>
+                <input type="text" name="author" id="author">
+            </div>
+            <div>
+                <label for="pages">Pages</label>
+                <input type="tel" name="pages" id="pages">
+            </div>
+            <div>
+                <label for="readStatus">Read status</label>
+                <input type="checkbox" name="read-status" id="readStatus">
+            </div>
+            <button type="submit" class="btn">Add book</button>
+        </form>
+
+    </div>
     
     
 
