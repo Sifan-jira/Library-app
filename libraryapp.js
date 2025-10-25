@@ -1,4 +1,4 @@
-const myLibrary = [
+let myLibrary = [
 ];
 
 function book(title, author, pages, readStatus){
@@ -11,9 +11,13 @@ function book(title, author, pages, readStatus){
 
 
 function addBookToLibrary(title, author, pages, readStatus){
+
+    const newBookId = Date.now();
    const Book= new book(title, author, pages, readStatus);
+   Book.id =newBookId;
 
    myLibrary.push(Book);
+   return Book; // return the created book
 }
 
 addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, false);
@@ -34,7 +38,7 @@ function displayArrayBook(books, containerId){
         //create div for cards
         const bookCards=document.createElement('div');
         bookCards.className='book-card'; // add class for styling
-
+        bookCards.dataset.bookId = book.id;
         // create elements for book info
 
         const titleElement = document.createElement('h3');
@@ -50,15 +54,35 @@ function displayArrayBook(books, containerId){
         bookCards.appendChild(pageElement);
 
         const statusElement = document.createElement('p');
-        statusElement.textContent =`Read status: ${book.readStatus}`;
+        statusElement.textContent = book.readStatus ? 'Read' : 'Not read';
+        
         bookCards.appendChild(statusElement);
+
+        // add remove btn to remove one specific book
+        const removeBtn = document.createElement('button');
+        removeBtn.className = "remove-btn";
+        removeBtn.textContent = 'Remove';
+
+        bookCards.appendChild(removeBtn);
+
+        removeBtn.addEventListener('click', ()=>{
+            removeBook(book.id)
+        });
 
         container.appendChild(bookCards);
 
     });
 }
+ displayArrayBook(myLibrary,'display-container');
 
+function removeBook(bookId){
+    // remove from the array
+    myLibrary = myLibrary.filter(book => book.id !== bookId);
+
+    // re-render list (no need to manually remove DOM node)
     displayArrayBook(myLibrary,'display-container');
+}
+
 
 const addNewBookBtn = document.querySelector(".newBookAddBtn");
 const newBookFormContainer = document.querySelector(".newBookAddContainer");
@@ -82,13 +106,11 @@ newBookForm.addEventListener('submit', (event)=> {
     const newBook= addBookToLibrary(title,author, pages, readStatus);
     console.log(myLibrary);
 
-    newBookForm.reset();
+    // reset and hide the form
+    event.target.reset();
     newBookFormContainer.style.display= 'none';
 
-
-    //displayArrayBook(newBook,'myTable');
-    event.target.reset();
+    // refresh the card view
     displayArrayBook(myLibrary,'display-container');
 
-    
 })
