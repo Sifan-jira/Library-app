@@ -21,7 +21,7 @@
             align-items: center;
             justify-content: center;
             z-index: 50;
-            padding: 20px;
+            padding: 7% 24%;
 
         }
         .modal{
@@ -82,6 +82,68 @@
         }
         .newBookForm .btn:hover{
             background-color: #25aa80;
+            box-shadow: 3px 3px 10px rgb(58, 58, 58, 0.3); 
+        }
+        #display-container{
+            display: flex;
+            margin-top: 15px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 18px;
+        }
+        .book-card{
+            background-color: white;
+            height: 250px;
+            width: 190px;
+            border-radius: 10px;
+            padding: 15px 30px;
+            position: relative;
+        }
+        .remove-btn{
+            background-color: rgb(227, 227, 227);
+            border: none;
+            color: black;
+            padding: 10px 25px;
+            border-radius: 10px;
+            position: absolute;
+            right: 15px;
+            bottom: 35px;
+        }
+        .remove-btn:hover{
+            background-color: rgb(234, 234, 234);
+            box-shadow: 3px 3px 10px rgb(58, 58, 58, 0.3); 
+            cursor: pointer;
+        }
+        .newBookAddBtn{
+            background-color: #4962ff;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 10px;
+            color: white;
+            font-size: 18px;
+        }
+        .newBookAddBtn:hover{
+            background-color: #5e72f4;
+            box-shadow: 3px 3px 10px rgb(58, 58, 58, 0.3); 
+        }
+        .read-btn{
+            border: none;
+            padding: 10px 12px;
+            border-radius: 10px;
+            position: absolute;
+            bottom: 35px;
+            cursor: pointer;
+        }
+        .read-btn:active{
+            background-color: #f4f4f4;
+            box-shadow: 3px 3px 10px rgb(58, 58, 58, 0.3); 
+        }
+        .read-btn.read{
+            background-color: #109a6e;
+            color: white;
+        }
+        .read-btn:not-read{
+            background-color: #ea3d12;
         }
     </style>
 </head>
@@ -131,5 +193,24 @@
     
 
     <script src="libraryapp.js"></script>
+    <script>
+        const modalOverlay= document.querySelector('.newBookAddContainer');
+        const closeBtn = modalOverlay.querySelectorAll('.close-btn');
+       
+        function closeModal(){
+            modalOverlay.style.display = 'none';
+            modalOverlay.setAttribute('aria-hidden', 'true')
+        }
+        closeBtn.forEach(btn => {
+            btn.addEventListener('click', closeModal)
+        });
+
+        //to close the modal outside of the box
+
+        modalOverlay.addEventListener('click', (e)=>{
+            if(e.target == modalOverlay) closeModal();
+        })
+
+    </script>
 </body>
 </html>

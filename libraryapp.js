@@ -9,6 +9,10 @@ function book(title, author, pages, readStatus){
     this.id = crypto.randomUUID()
 }
 
+book.prototype.toggleReadStatus= function() {
+    this.readStatus = !this.readStatus
+}
+
 
 function addBookToLibrary(title, author, pages, readStatus){
 
@@ -39,6 +43,7 @@ function displayArrayBook(books, containerId){
         const bookCards=document.createElement('div');
         bookCards.className='book-card'; // add class for styling
         bookCards.dataset.bookId = book.id;
+
         // create elements for book info
 
         const titleElement = document.createElement('h3');
@@ -53,7 +58,11 @@ function displayArrayBook(books, containerId){
         pageElement.textContent =`Pages: ${book.pages}`;
         bookCards.appendChild(pageElement);
 
-        const statusElement = document.createElement('p');
+        const statusElement = document.createElement('button');
+        statusElement.className= "read-btn";
+        const readStatusClass = book.readStatus ? 'bg-green-500' : 'bg-red-500';
+        statusElement.classList.add(readStatusClass);
+        statusElement.setAttribute('data-index', books.indexOf(book))
         statusElement.textContent = book.readStatus ? 'Read' : 'Not read';
         
         bookCards.appendChild(statusElement);
@@ -61,7 +70,7 @@ function displayArrayBook(books, containerId){
         // add remove btn to remove one specific book
         const removeBtn = document.createElement('button');
         removeBtn.className = "remove-btn";
-        removeBtn.textContent = 'Remove';
+        removeBtn.textContent = `Remove`;
 
         bookCards.appendChild(removeBtn);
 
@@ -72,8 +81,25 @@ function displayArrayBook(books, containerId){
         container.appendChild(bookCards);
 
     });
+    toggleReadListener();
 }
  displayArrayBook(myLibrary,'display-container');
+
+ //attach toggle to the read button
+
+ function toggleReadListener(){
+    const toggleBtn = document.querySelectorAll('.read-btn');
+     
+    toggleBtn.forEach(btn => {
+        btn.addEventListener('click', (e)=> {
+            const bookIndex = e.target.dataset.index;
+
+            myLibrary[bookIndex].toggleReadStatus();
+            displayArrayBook(myLibrary,'display-container');
+        })
+        
+    });
+ }
 
 function removeBook(bookId){
     // remove from the array
@@ -114,3 +140,13 @@ newBookForm.addEventListener('submit', (event)=> {
     displayArrayBook(myLibrary,'display-container');
 
 })
+
+//to change the toggle color of read status
+
+document.addEventListener('DOMContentLoaded', function(){
+    const toggleColorBtn= document.querySelectorAll('.read.btn');
+
+    toggleColorBtn.addEventListener('click',function(){
+        toggleColorBtn.classList.toggle('active');
+    });
+});
