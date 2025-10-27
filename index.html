@@ -5,41 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library app</title>
     <style>
-        .book-card{
-            background-color: yellow;
-            border-radius: 10x;
-            height: 180px;
-            width: 170px;
+        body{
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: linear-gradient(135deg, #f8f9fb 0%, #eef2f7 100%);
+            margin: 0;
+            padding: 24px;
+            color: #1f2937;
+        }
+        .newBookAddContainer{
+            background-color: rgba(15, 23, 42, 0.6);
+            display: none;
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            padding: 20px;
+
+        }
+        .modal{
+             background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+             border-radius:10px ;
+             width: 100%;
+             max-width: 520px;
+             padding: 20px 22px;
+             box-shadow: 0 10px 30px rgba(2,6,23,0.12);
+        }
+        .modal-header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .close-btn{
+            background-color: transparent;
+            border: none;
+            font-size: 23px;
+            cursor: pointer;
+            color: #374151;
+        }
+        .modalTitle{
+            margin-top: 0;
+            font-size: 18px;
+        }
+        .newBookForm{
+            display: grid;
+            gap: 12px;
+        }
+        .newBookForm label{
+            display: block;
+            margin-bottom: 7px;
+            font-size: 15px;
+            color: #374151;
+        }
+        .newBookForm input[type="text"],
+        .newBookForm input[type="number"]{
+            width: 100%;
+            border: 1px solid #e6eef6;
+            outline: none;
+            padding: 8px 10px;
+            border-radius: 5px;
+            background: #fbfdff;
+        }
+        .row{
+            display: grid;
+            gap: 10px;
+        }
+        .newBookForm .btn{
+            background: #059669;
+            border: none;
+            padding: 10px 12px;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            font-weight: 700;
+        }
+        .newBookForm .btn:hover{
+            background-color: #25aa80;
         }
     </style>
 </head>
 <body>
-    <div id="display-container"></div>
-
+   
     <button class="newBookAddBtn">New Book</button>
 
-    <div class="newBookAddContainer" style="display: none;">
-        <form action="#" class="newBookForm">
-            <div>
-                <label for="title">Title</label>
-                <input type="text" name="title" id="title" required>
-            </div>
-            <div>
-                <label for="author">Author</label>
-                <input type="text" name="author" id="author" required>
-            </div>
-            <div>
-                <label for="pages">Pages</label>
-                <input type="number" name="pages" id="pages" required>
-            </div>
-            <div>
-                <label for="readStatus">Read status</label>
-                <input type="checkbox" name="read-status" id="readStatus">
-            </div>
-            <button type="submit" class="btn">Add book</button>
-        </form>
 
+    <div class="newBookAddContainer" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add new book</h2>
+                <button class="close-btn" aria-label="Close form">✕</button>
+            </div>
+
+            <form action="#" class="newBookForm">
+                <div>
+                    <label for="title">Title</label>
+                    <input type="text" name="title" id="title" required>
+                </div>
+                <div>
+                    <label for="author">Author</label>
+                    <input type="text" name="author" id="author" required>
+                </div>
+                <div class="row">
+                    <div style="flex:1">
+                        <label for="pages">Pages</label>
+                        <input type="number" name="pages" id="pages" required>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <label for="readStatus">Read status</label>
+                        <input type="checkbox" name="read-status" id="readStatus">
+                    </div>
+                </div>
+                <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:8px;">
+                    <!-- <button type="button" class="close-btn">Cancel</button> -->
+                    <button type="submit" class="btn">Add book</button>
+                </div>
+            </form>
+        </div>
     </div>
+
+   
+
+     <div id="display-container"></div>
     
     
 
